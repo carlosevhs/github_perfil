@@ -7,7 +7,6 @@ const ReposList = ({nomeUsuario}) => {
     const [estaCarregando, setEstaCarregando] = useState(true);
 
     useEffect (() => {
-        setEstaCarregando(true)
         fetch(`https://api.github.com/users/${nomeUsuario}/repos`)
         .then(res => res.json())
         .then(resJson => {
@@ -19,10 +18,11 @@ const ReposList = ({nomeUsuario}) => {
     },[nomeUsuario])
 
     return (
+        
         <div className="container">
-            {estaCarregando ? (
+            {estaCarregando && (
                 <h1>Carregando...</h1>
-            ): (
+            )}
             <ul className={styles.list}>
                 {/*{repos.map(repositorio =>())} */}
                 {repos.map(({ id, name, language, html_url}) =>(
@@ -39,7 +39,6 @@ const ReposList = ({nomeUsuario}) => {
                     </li>
                 ))}
             </ul>
-            )}
         </div>
     )
 }
